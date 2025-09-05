@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Modificar Factura{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-primary mb-4">Modificar Factura</h1>
+
+            <!-- Formulario -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+             
+                </div>
+                <div class="mb-3">
+                    <label for="metodo_pago" class="form-label">Método de Pago</label>
+                    <select name="metodo_pago" id="metodo_pago" class="form-select">
+                        <option value="Efectivo" {% if factura.metodo_pago == 'Efectivo' %}selected{% endif %}>Efectivo</option>
+                        <option value="Tarjeta Debito" {% if factura.metodo_pago == 'Tarjeta Debito' %}selected{% endif %}>Tarjeta Débito</option>
+                        <option value="Tarjeta Credito" {% if factura.metodo_pago == 'Tarjeta Credito' %}selected{% endif %}>Tarjeta Crédito</option>
+                        <option value="Transferencia Bancaria" {% if factura.metodo_pago == 'Transferencia Bancaria' %}selected{% endif %}>Transferencia Bancaria</option>
+                        <option value="Otro" {% if factura.metodo_pago == 'Otro' %}selected{% endif %}>Otro</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="total" class="form-label">Monto Total</label>
+                    <input type="number" name="total" id="total" class="form-control" value="{{ factura.total }}" step="0.01" required>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary w-50 me-2">Guardar Cambios</button>
+                    <a href="{% url 'adm_detalle_factura' factura.id %}" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

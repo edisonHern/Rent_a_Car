@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Modificar Reserva{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-primary mb-4">Modificar Reserva</h1>
+
+            <!-- Formulario -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row g-3">
+                    {{ form.as_p }}
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary w-50 me-2">Guardar Cambios</button>
+                    <a href="{% url 'adm_lista_reservas' %}" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

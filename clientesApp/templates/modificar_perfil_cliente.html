@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Modificar Perfil Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título -->
+    <h1 class="text-center mb-4">Modificar Perfil</h1>
+
+    <!-- Mostrar mensajes de éxito o error -->
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Formulario de modificación -->
+    <form method="post" enctype="multipart/form-data" action="{% url 'modificar_perfil_cliente' %}" class="shadow-sm p-4 rounded bg-light">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" value="{{ form.nombre.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" class="form-control" value="{{ form.apellido.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="rut">RUT</label>
+            <input type="text" id="rut" name="rut" class="form-control" value="{{ form.rut.value }}" readonly>
+        </div>
+        <div class="form-group mb-3">
+            <label for="fecha_nac">Fecha de Nacimiento</label>
+            <input type="date" id="fecha_nac" name="fecha_nac" class="form-control" value="{{ form.fecha_nac.value }}">
+        </div>
+        <div class="form-group mb-3">
+            <label for="nacionalidad">Nacionalidad</label>
+            <input type="text" id="nacionalidad" name="nacionalidad" class="form-control" value="{{ form.nacionalidad.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="licencia_conducir">Licencia de Conducir</label>
+            <input type="text" id="licencia_conducir" name="licencia_conducir" class="form-control" value="{{ form.licencia_conducir.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" name="telefono" class="form-control" value="{{ form.telefono.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" name="email" class="form-control" value="{{ form.email.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" class="form-control" value="{{ form.direccion.value }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="imagen">Imagen de Perfil</label>
+            <input type="file" id="imagen" name="imagen" class="form-control">
+            {% if form.imagen.value %}
+            <p>Imagen actual:</p>
+            <img src="{{ form.imagen.value.url }}" alt="Imagen de perfil" class="img-thumbnail" width="100">
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+    </form>
+
+    <!-- Enlace para volver -->
+    <div class="text-center mt-3">
+        <a href="{% url 'cliente_dashboard' %}" class="btn btn-secondary">Volver al Dashboard</a>
+    </div>
+</div>
+{% endblock %}

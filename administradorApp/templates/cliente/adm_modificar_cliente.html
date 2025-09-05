@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Modificar Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%;"> <!-- Incrementado el ancho a 500px -->
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-primary mb-4">Modificar Cliente</h1>
+
+            <!-- Formulario -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    {% for field in form %}  
+                        <div class="col-12">  
+                            <label class="form-label">{{ field.label }}</label>  
+                            {% if field.name == 'fecha_nac' %}  
+                                <input type="date" class="form-control" value="{{ field.value|date:'Y-m-d' }}" readonly>  
+                                {{ field.as_hidden }}  
+                            {% else %}  
+                                {{ field }}  
+                            {% endif %}  
+                            {% if field.errors %}  
+                                <div class="alert alert-danger">  
+                                    {{ field.errors }}  
+                                </div>  
+                            {% endif %}  
+                        </div>  
+                    {% endfor %}  
+                        
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary w-50 me-2">Guardar Cambios</button>
+                    <a href="{% url 'adm_lista_clientes' %}" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

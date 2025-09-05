@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Ingresar Factura{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-header bg-warning text-dark text-center">
+            <h1 class="mb-0">Ingresar Factura</h1>
+        </div>
+        <div class="card-body">
+            <!-- Mostrar mensajes (errores o éxito) -->
+            {% if messages %}
+                <div class="alert alert-warning">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Formulario para ingresar factura -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-warning text-dark w-50 me-2">Crear Factura</button>
+                    <a href="{% url 'lista_facturas' %}" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

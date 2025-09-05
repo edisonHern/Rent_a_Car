@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Administrador{% endblock %}
+
+{% block content %}
+
+<style>
+    .row:hover {
+        transform: translateY(5px); /* Mueve la fila 5px hacia abajo */
+        transition: transform 0.3s ease; /* Transición suave */
+    }
+</style>
+
+
+<div class="container mt-5">
+    <!-- Dashboard Content -->
+    <div class="row">
+        <!-- Fila Superior -->
+        <!-- Tarjeta Estado de Clientes -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background-color: #8b479a;">Estado de Clientes</div>
+                <div class="card-body">
+                    <p>Inactivos: {{ clientes.inactivos }}</p>
+                    <p>Con Reserva: {{ clientes.con_reserva }}</p>
+                    <p>Rentando: {{ clientes.rentando }}</p>
+                    <p>Total Clientes: {{ total_clientes }}</p>
+                    <a href="{% url 'reporte_clientes' %}" class="btn btn-primary w-100 mt-3">Descargar Reporte de Clientes</a>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta Estado de Reservas -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background-color: #8b479a;">Estado de Reservas</div>
+                <div class="card-body">
+                    <p>Activas: {{ reservas.activas }}</p>
+                    <p>Pagadas: {{ reservas.pagadas }}</p>
+                    <p>Completadas: {{ reservas.completadas }}</p>
+                    <p>Canceladas: {{ reservas.canceladas }}</p>
+                    <p>Total Reservas: {{ total_reservas }}</p>
+                    <a href="{% url 'reporte_reservas' %}" class="btn btn-primary w-100 mt-3">Descargar Reporte de Reservas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Fila Inferior -->
+        <!-- Tarjeta Estado de Autos -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background-color: #8b479a;">Estado de Autos</div>
+                <div class="card-body">
+                    <p>Disponibles: {{ autos.disponibles }}</p>
+                    <p>Reservados: {{ autos.reservados }}</p>
+                    <p>Rentados: {{ autos.rentados }}</p>
+                    <p>Mantenimiento: {{ autos.mantenimiento }}</p>
+                    <p>Total Autos: {{ total_autos }}</p>
+                    <p>Gasolina: {{ autos.gasolina }}</p>
+                    <p>Diésel: {{ autos.diesel }}</p>
+                    <p>Eléctricos: {{ autos.electricos }}</p>
+                    <a href="{% url 'reporte_autos' %}" class="btn btn-primary w-100 mt-3">Descargar Reporte de Autos</a>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta Total de Ingresos -->
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background-color: #28a745;">Total de Ingresos</div>
+                <div class="card-body">
+                    <p>Efectivo: {{ pagos.efectivo }}</p>
+                    <p>Débito: {{ pagos.debito }}</p>
+                    <p>Crédito: {{ pagos.credito }}</p>
+                    <h5 class="card-title">Total Facturas: {{ total_facturas }}</h5>
+                    <h5 class="card-title">Ingresos: ${{ total_ingresos|floatformat:0 }}</h5>
+                    <a href="{% url 'reporte_facturas' %}" class="btn btn-primary w-100 mt-3">Descargar Reporte de Facturas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

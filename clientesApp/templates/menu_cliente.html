@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Menú Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <h1 class="text-center">Bienvenido al Menú Cliente</h1>
+    <p class="text-center">Selecciona una opción del menú para continuar.</p>
+
+    <!-- Opciones de navegación -->
+    <div class="d-flex justify-content-center mt-4">
+        <div class="btn-group">
+            <a href="{% url 'catalogo' %}" class="btn btn-primary">Catálogo</a>
+            <a href="{% url 'perfil' %}" class="btn btn-secondary">Perfil</a>
+            <a href="{% url 'ver_politicas' %}" class="btn btn-info">Políticas</a>
+            <a href="{% url 'nosotros' %}" class="btn btn-success">Nosotros</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

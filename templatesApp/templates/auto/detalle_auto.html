@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalles del Auto{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 800px; width: 100%;">
+        {% if auto.imagen %}
+            <img src="{{ auto.imagen.url }}" class="card-img-top img-fluid" alt="{{ auto.marca }} {{ auto.modelo }}">
+        {% else %}
+            <p class="text-center text-muted mt-3">Imagen no disponible</p>
+        {% endif %}
+        <div class="card-body">
+            <!-- Título del auto -->
+            <h1 class="text-warning text-center mb-4">{{ auto.marca }} {{ auto.modelo }} ({{ auto.año }})</h1>
+
+            <!-- Detalles del auto -->
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Patente:</strong> {{ auto.patente }}</p>
+                    <p><strong>Marca:</strong> {{ auto.marca }}</p>
+                    <p><strong>Modelo:</strong> {{ auto.modelo }}</p>
+                    <p><strong>Año:</strong> {{ auto.año }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Kilometraje:</strong> {{ auto.kilometraje }} km</p>
+                    <p><strong>Combustible:</strong> {{ auto.combustible }}</p>
+                    <p><strong>Color:</strong> {{ auto.color }}</p>
+                    <p><strong>Puertas:</strong> {{ auto.puertas }}</p>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Precio y Estado -->
+            <p><strong>Precio por Día:</strong> ${{ auto.precio_dia }}</p>
+            <p><strong>Estado:</strong> <span class="badge {% if auto.estado_auto == 'disponible' %}bg-success{% elif auto.estado_auto == 'rentado' %}bg-danger{% elif auto.estado_auto == 'reservado' %}bg-info{% else %}bg-secondary{% endif %}">{{ auto.estado_auto|capfirst }}</span></p>
+
+            <!-- Botón de acción -->
+            <div class="d-flex justify-content-center mt-4">
+                <a href="{% url 'lista_autos' %}" class="btn btn-secondary w-50">Volver a la Lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

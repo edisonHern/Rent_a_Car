@@ -1,0 +1,88 @@
+________________________________________
+Política de Cancelación de Reservas
+Descripción:
+La plataforma permite a los clientes cancelar sus reservas con la opción de obtener un reembolso, dependiendo de la anticipación con la que se realice la cancelación. Esto busca garantizar tanto la flexibilidad para los usuarios como la estabilidad económica para el negocio.
+Detalles:
+1.	Reembolso Completo:
+Si el cliente realiza la cancelación al menos 24 horas antes del inicio de la reserva, se procesará un reembolso completo del monto pagado.
+2.	Reembolso Parcial:
+Si la cancelación ocurre con menos de 24 horas de anticipación, se reembolsará solo el 50% del costo total de la reserva.
+3.	Sin Reembolso:
+Si la cancelación ocurre después del inicio del período de reserva, no se otorgará ningún reembolso.
+________________________________________
+Política de Daños al Vehículo
+Descripción:
+Los clientes serán responsables de cualquier daño ocasionado al vehículo durante el período de alquiler. Esta responsabilidad incluye cualquier daño físico o mecánico no cubierto por un seguro opcional contratado al momento de la reserva.
+Detalles:
+1.	Reporte de Daños:
+Al devolver el vehículo, cualquier daño debe ser reportado inmediatamente al personal de la plataforma.
+2.	Evaluación del Daño:
+El costo del daño será evaluado por un especialista certificado y facturado al cliente.
+3.	Seguro Opcional:
+Los clientes que hayan contratado un seguro durante el proceso de reserva podrán usarlo para cubrir total o parcialmente los costos, según las condiciones del seguro.
+________________________________________
+Política de Retrasos en la Devolución
+Descripción:
+Los vehículos alquilados deben ser devueltos en el horario previamente acordado. Los retrasos en la devolución están sujetos a cargos adicionales como compensación por la posible afectación al próximo cliente.
+Detalles:
+1.	Cargo por Retraso:
+Se aplicará un cargo equivalente al 10% del costo diario de alquiler por cada hora de retraso.
+2.	Día Adicional:
+Si el retraso supera las 6 horas, se considerará como un día adicional de alquiler y se cobrará como tal.
+3.	Comunicación:
+Se recomienda que los clientes informen con antelación si prevén un retraso, para evaluar posibles soluciones.
+________________________________________
+Política de Combustible
+Descripción:
+El vehículo alquilado debe devolverse con el mismo nivel de combustible con el que fue entregado al cliente. Esto asegura que no se generen costos inesperados ni inconvenientes operativos para el negocio.
+Detalles:
+1.	Nivel de Combustible Inicial:
+El nivel de combustible será registrado al momento de entregar el vehículo.
+2.	Cobro Adicional:
+Si el cliente devuelve el vehículo con menos combustible del registrado, se aplicará un cargo equivalente al costo del combustible faltante, según la tarifa vigente en ese momento.
+3.	Excedente de Combustible:
+Si el cliente devuelve el vehículo con más combustible del registrado inicialmente, no se hará ninguna compensación adicional.
+________________________________________
+Política de Edad y Licencia
+Descripción:
+Para alquilar un vehículo, los clientes deben cumplir con ciertos requisitos relacionados con la edad y la experiencia como conductores, asegurando así la seguridad del negocio y el cumplimiento de las regulaciones legales aplicables.
+Detalles:
+1.	Edad Mínima:
+La edad mínima para alquilar un vehículo es de 21 años.
+2.	Tarifa para Conductores Jóvenes:
+Los conductores menores de 25 años estarán sujetos a un cargo adicional, denominado "tarifa joven", como medida de compensación por los mayores riesgos asociados.
+3.	Licencia de Conducir:
+Los clientes deben poseer una licencia de conducir válida, emitida al menos un año antes de la fecha del alquiler. No se aceptarán licencias provisionales o temporales.
+________________________________________
+Política de Pago y Depósitos
+Descripción:
+El proceso de reserva incluye el pago completo del alquiler y el depósito de una garantía reembolsable. Esto protege al negocio frente a posibles inconvenientes durante el uso del vehículo.
+Detalles:
+1.	Pago Completo:
+Los clientes deben pagar el monto total del alquiler al momento de confirmar la reserva.
+2.	Depósito Reembolsable:
+Un depósito será retenido como garantía y reembolsado dentro de las 48 horas posteriores a la devolución del vehículo, siempre que no se presenten daños o cargos adicionales.
+3.	Métodos de Pago Aceptados:
+Se aceptan tarjetas de crédito, débito y transferencias bancarias como métodos de pago.
+________________________________________
+Política de Uso del Vehículo
+Descripción:
+Los vehículos alquilados deben ser utilizados únicamente dentro de las áreas geográficas autorizadas. El uso fuera de estas áreas requiere autorización previa y está sujeto a sanciones en caso de incumplimiento.
+Detalles:
+1.	Áreas Autorizadas:
+Las áreas geográficas permitidas para el uso del vehículo serán definidas al momento de la reserva.
+2.	Multa por Infracción:
+El uso fuera de las áreas autorizadas estará sujeto a una multa fija, además del costo del transporte del vehículo de regreso.
+3.	Autorización Especial:
+Los clientes pueden solicitar autorización previa para utilizar el vehículo fuera de las áreas establecidas.
+________________________________________
+Política de Notificaciones
+Descripción:
+El sistema enviará notificaciones automatizadas a los clientes para mantenerlos informados sobre eventos importantes relacionados con sus reservas y alquileres.
+Detalles:
+1.	Recordatorios:
+Se enviará un recordatorio 24 horas antes del inicio del alquiler y otro antes del vencimiento de la devolución.
+2.	Notificaciones de Retrasos:
+Los clientes recibirán alertas si no han devuelto el vehículo en el tiempo acordado.
+3.	Actualizaciones:
+Las notificaciones incluirán cualquier cambio en las políticas o términos del contrato.

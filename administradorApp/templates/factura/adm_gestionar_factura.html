@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Gestionar Facturas{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título principal -->
+    <div class="alert alert-info text-center display-4">Gestionar Facturas</div>
+
+    <!-- Crear Factura -->
+    <div class="mt-4">
+        <h3>Crear Factura</h3>
+        <form method="POST" action="{% url 'adm_gestionar_factura' %}" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="monto" class="form-label">Monto:</label>
+                <input type="text" name="monto" id="monto" class="form-control" required>
+            </div>
+            <!-- Otros campos pueden añadirse aquí -->
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Crear Factura</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de Facturas -->
+    <div class="mt-5">
+        <h3>Facturas Existentes</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Reserva</th>
+                    <th>Monto</th>
+                    <th>Fecha de Emisión</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.id }}</td>
+                    <td>{{ factura.reserva }}</td>
+                    <td>${{ factura.monto }}</td>
+                    <td>{{ factura.fecha_emision }}</td>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="factura_id" value="{{ factura.id }}">
+                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay facturas registradas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Reservas Disponibles -->
+    <div class="mt-5">
+        <h3>Reservas Disponibles</h3>
+        <ul class="list-group">
+            {% for reserva in reservas %}
+            <li class="list-group-item">
+                {{ reserva.id }} - {{ reserva.cliente }} - {{ reserva.auto }}
+            </li>
+            {% empty %}
+            <li class="list-group-item text-center">No hay reservas disponibles.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

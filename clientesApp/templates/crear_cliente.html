@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Ingresar Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="alert alert-info text-center">
+        <h2>Pon tus datos para contactarte</h2>
+    </div>
+
+    <!-- Formulario -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary w-100">Guardar</button>
+                    <a href="{% url 'lista_clientes' %}" class="btn btn-secondary w-100 mt-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

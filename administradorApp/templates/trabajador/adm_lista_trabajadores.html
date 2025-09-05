@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Trabajadores{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h1 class="text-center text-primary">Lista de Trabajadores</h1>
+        </div>
+    </div>
+
+    <!-- Botón para crear trabajador -->
+    <div class="text-end mb-4">
+        <a href="{% url 'adm_ingresar_trabajador' %}" class="btn btn-primary">Crear Trabajador</a>
+    </div>
+
+    <!-- Tabla de trabajadores -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>RUT</th>
+                        <th>Cargo</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trabajador in trabajadores %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ trabajador.nombre }}</td>
+                        <td>{{ trabajador.apellido }}</td>
+                        <td>{{ trabajador.rut }}</td>
+                        <td>{{ trabajador.cargo }}</td>
+                        <td>{{ trabajador.telefono }}</td>
+                        <td>{{ trabajador.email }}</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                <a href="{% url 'adm_detalle_trabajador' trabajador.id %}" class="btn btn-info btn-sm">
+                                    Ver Detalles
+                                </a>
+                                <a href="{% url 'adm_modificar_trabajador' trabajador.id %}" class="btn btn-warning btn-sm">
+                                    Editar
+                                </a>
+                                <a href="{% url 'adm_eliminar_trabajador' trabajador.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este trabajador?');">
+                                    Eliminar
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">No hay trabajadores registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

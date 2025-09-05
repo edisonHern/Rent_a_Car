@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Facturas{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título principal -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body text-center">
+            <h1 class="text-warning mb-0">Lista de Facturas</h1>
+        </div>
+    </div>
+
+    <!-- Botón para ingresar una nueva factura -->
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{% url 'ingresar_factura' %}" class="btn btn-warning btn-lg text-white">
+            <i class="fas fa-plus-circle"></i> Ingresar Factura
+        </a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <form method="GET" action="{% url 'lista_facturas' %}" class="row g-3">
+                <div class="col-md-5">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-4">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="codigo_factura" {% if request.GET.tipo_busqueda == 'codigo_factura' %}selected{% endif %}>Código de Factura</option>
+                        <option value="codigo_reserva" {% if request.GET.tipo_busqueda == 'codigo_reserva' %}selected{% endif %}>Código de Reserva</option>
+                        <option value="rut_cliente" {% if request.GET.tipo_busqueda == 'rut_cliente' %}selected{% endif %}>RUT del Cliente</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warning w-100 text-white">Buscar</button>
+                </div>
+                <div class="col-md-1">
+                    <a href="{% url 'lista_facturas' %}" class="btn btn-secondary w-80">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de Facturas -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-warning">
+                    <tr>
+                        <th>Código</th>
+                        <th>Reserva</th>
+                        <th>Cliente</th>
+                        <th>Fecha de Emisión</th>
+                        <th>Método de Pago</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                    <tr>
+                        <td>{{ factura.codigo_factura }}</td>
+                        <td>{{ factura.reserva.codigo_reserva }}</td>
+                        <td>{{ factura.cliente.rut }}</td>
+                        <td>{{ factura.fecha_emision|date:"d/m/Y" }}</td>
+                        <td>{{ factura.metodo_pago }}</td>
+                        <td>${{ factura.total|floatformat:2 }}</td>
+                        <td>
+                            <a href="{% url 'detalle_factura' factura.id %}" class="btn btn-warning btn-sm text-dark">
+                                <i class="fas fa-eye"></i> Ver Detalles
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No hay facturas registradas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

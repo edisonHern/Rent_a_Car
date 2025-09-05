@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Login Trabajador{% endblock %}
+
+{% block content %}
+
+<style>
+.card {
+    transition: transform 0.3s ease; /* Transición suave en ambos estados */
+}
+    
+.container:hover .card {
+    transform: translateY(-10px); /* Movimiento hacia arriba */
+}
+</style>
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 400px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center mb-4" style="color: #F9C74F;">Trabajador</h1>
+
+            
+
+            <!-- Formulario -->
+            <form method="post" action="{% url 'login_trabajador' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario:</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Ingrese su usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Ingrese su contraseña" required>
+                </div>
+                <!-- Botón Iniciar Sesión -->
+                <button type="submit" class="btn btn-success btn-lg w-100" style="background-color: #F9C74F; border-color: #F9C74F;">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <!-- Botones adicionales -->
+            <div class="text-center mt-2">
+                <!--<a href="{% url 'carrusel_imagen' %}" class="btn btn-secondary w-50 me-1">Volver</a>-->
+                <a href="{% url 'staff' %}" class="btn btn-secondary w-50 ms-1">Staff</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

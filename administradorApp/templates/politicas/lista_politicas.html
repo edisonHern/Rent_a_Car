@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Políticas del Sitio{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 800px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-primary mb-4">Políticas del Sitio</h1>
+
+            <!-- Acordeón de políticas -->
+            {% if politicas %}
+                <div class="accordion" id="politicasAccordion">
+                    {% for politica in politicas %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                                {{ politica.titulo }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#politicasAccordion">
+                            <div class="accordion-body">
+                                {{ politica.descripcion }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center text-danger mt-3">No hay políticas disponibles en este momento.</p>
+            {% endif %}
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'adm_ingresar_politica' %}" class="btn btn-secondary w-45">Ingresar Política</a>
+                <!--<a href="{% url 'adm_index' %}" class="btn btn-secondary w-45">Volver al Menú</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

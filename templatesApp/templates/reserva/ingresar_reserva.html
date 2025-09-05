@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Crear Reserva{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+        <div class="card-header bg-white text-warning text-center">
+            <h1 class="mb-0">Crear Reserva</h1>
+        </div>
+        <div class="card-body">
+            <!-- Mostrar los mensajes (errores o éxito) -->
+            {% if messages %}
+                <div class="alert alert-warning">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Formulario -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn w-50 text-dark me-2" style="background-color: #F9C74F; border-color: #F9C74F;">Crear Reserva</button>
+                    <a href="{% url 'lista_reservas' %}" class="btn btn-secondary w-50 ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

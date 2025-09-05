@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/core/menu/menu.css' %}">
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <header class="header">
+
+            <h1><a href="{% url 'index' %}" style="text-decoration: none; color: inherit;" >Sistema de Gestión</a></h1>
+        
+            <ul class="nav-list">
+                <li class="nav-item"><a class="nav-link" href="{% url 'login_cliente' %}">Login CL</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'registro_cliente' %}">Registro</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'menu_cliente' %}">Menu Cliente</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'adm_lista_autos' %}">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login_trabajador' %}">Login Job</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login_administrador' %}">Login Adm</a></li>
+            </ul>
+            
+            <div class="employee-info">
+
+                <span class="employee-name">Empleado: {{ user.username }} </span>
+
+                <form id="logoutForm" action="{% url 'logout_cliente' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Salir</button>
+                </form>
+
+            </div>
+
+        </header>
+
+    </div>
+
+    <script src="{% static 'js/menu/menu.js' %}"></script> <!-- Archivo JavaScript externo -->
+
+</body>
+
+</html>

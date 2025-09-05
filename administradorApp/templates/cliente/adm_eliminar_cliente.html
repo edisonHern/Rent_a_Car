@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="alert alert-danger display-4 text-center">Eliminar Cliente</div>
+
+    <!-- Confirmación -->
+    <p class="text-center">¿Estás seguro de que deseas eliminar el cliente <strong>"{{ cliente }}"</strong>?</p>
+    
+    <!-- Formulario -->
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'adm_lista_clientes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

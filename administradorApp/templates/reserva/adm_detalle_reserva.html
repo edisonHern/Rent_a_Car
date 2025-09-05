@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalles de Reserva{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-header text-center" style="background-color: #007bff; color: #fff;">
+            <h1 class="mb-0">Detalles de Reserva</h1>
+        </div>
+        <div class="card-body">
+            <!-- Detalles de la reserva -->
+            <h5 class="text-center text-primary mb-4">{{ reserva.cliente.nombre }} {{ reserva.cliente.apellido }}</h5>
+            <p><strong>Código Reserva:</strong> {{ reserva.codigo_reserva }}</p>
+            <p><strong>Patente:</strong> {{ reserva.auto.patente }}</p>
+            <p><strong>Marca:</strong> {{ reserva.auto.marca }}</p>
+            <p><strong>Modelo:</strong> {{ reserva.auto.modelo }}</p>
+            <p><strong>RUT:</strong> {{ reserva.cliente.rut }}</p>
+            <p><strong>Fecha Reserva:</strong> {{ reserva.fecha_reserva|date:"d/m/Y" }}</p>
+            <p><strong>Fecha Inicio:</strong> {{ reserva.fecha_inicio|date:"d/m/Y" }}</p>
+            <p><strong>Fecha Retorno:</strong> {{ reserva.fecha_retorno|date:"d/m/Y" }}</p>
+            <p><strong>Precio Total:</strong> ${{ reserva.precio_total }}</p>
+            <p><strong>Estado:</strong> {{ reserva.estado_reserva|capfirst }}</p>
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-around mt-4">
+                <a href="{% url 'adm_modificar_reserva' reserva.id %}" class="btn btn-warning btn-sm text-dark">Modificar</a>
+                <a href="{% url 'adm_eliminar_reserva' reserva.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta reserva?');">Eliminar</a>
+                <a href="{% url 'adm_cancelar_reserva' reserva.id %}" class="btn btn-info btn-sm text-white">Cancelar</a>
+                <a href="{% url 'adm_lista_reservas' %}" class="btn btn-secondary btn-sm">Volver a la Lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

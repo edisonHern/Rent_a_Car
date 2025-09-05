@@ -1,0 +1,30 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Trabajador{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 500px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-danger mb-4">Eliminar Trabajador</h1>
+            
+            <!-- Confirmación de eliminación -->
+            <p class="text-center">
+                ¿Estás seguro de que deseas eliminar al trabajador <strong>{{ trabajador.nombre }} {{ trabajador.apellido }}</strong>?
+            </p>
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-around mt-4">
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+                <a href="{% url 'adm_lista_trabajadores' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

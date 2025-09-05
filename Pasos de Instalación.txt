@@ -1,0 +1,81 @@
+administrador: EdisonHer
+clave: Sefeliz8.
+
+trabajador: FelipePacheco97
+clave: Pipe0000
+
+cliente: vaca
+clave: Vaca1234
+
+
+
+
+Pasos de Instalación
+Clonar o Descomprimir el Proyecto
+
+
+Opcional pero recomendable
+
+Crear y Activar un Entorno Virtual
+En tu entorno de desarrollador (ejemplo: Visual Studio Code)
+Usa el comando cd para ir a la carpeta del proyecto
+
+cd ruta\a\RentCar>
+
+Ejecuta el comando: 
+
+python -m venv venv
+esto crea una carpeta llamada venv en el directorio actual
+
+Luego debes activar el entorno virtual con el comando:
+
+en cmd:
+venv\Scripts\activate
+en PowerShel
+.\venv\Scripts\Activate.ps1
+
+Deberia lucir asi:
+(venv) C:\ruta\a\RentCar>
+
+Instalas dependencias:
+
+pip install -r requirements.txt
+
+Configurar la Base de Datos
+
+Asegúrate de tener MySQL y AppServ instalado y en ejecución.
+Crea una base de datos para el proyecto:
+
+por consola 
+CREATE DATABASE rentacardb;
+Importa el archivo de base de datos rentacardb.sql:
+
+psql -U [tu_usuario] -d rentacar -f rentacardb.sql
+
+o creala en:
+
+http://localhost/phpmyadmin/
+
+
+Realizar Migraciones
+
+Navega a la carpeta del proyecto (Rent_a_Car_7) y ejecuta:
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+Cargar Archivos Estáticos:
+
+python manage.py collectstatic
+
+Ejecutar el Servidor de Desarrollo
+
+
+python manage.py runserver
+Accede a la aplicación en tu navegador en http://127.0.0.1:8000.
+
+
+Si necesitas agregar superusuarios para la administración, ejecuta:
+
+python manage.py createsuperuser

@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalles del Auto{% endblock %}
+
+{% block content %}
+
+<style>
+.card {
+    transition: transform 0.3s ease; /* Transición suave en ambos estados */
+}
+
+    .container:hover .card {
+    transform: translateY(-10px); /* Movimiento hacia arriba */
+}
+</style>
+
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <h1 class="text-center mb-4">Detalles del Auto</h1>
+
+    <!-- Tarjeta con información del auto -->
+    <div class="card shadow-lg">
+        {% if auto.imagen %}
+            <img src="{{ auto.imagen.url }}" class="card-img-top" alt="{{ auto.marca }} {{ auto.modelo }}" style="max-height: 400px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'autos/no_disponible.jpg' %}" class="card-img-top" alt="Imagen no disponible" style="max-height: 400px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title text-primary">{{ auto.marca }} {{ auto.modelo }}</h2>
+            <p class="card-text"><strong>Patente:</strong> {{ auto.patente }}</p>
+            <p class="card-text"><strong>Año:</strong> {{ auto.año }}</p>
+            <p class="card-text"><strong>Kilometraje:</strong> {{ auto.kilometraje }} km</p>
+            <p class="card-text"><strong>Combustible:</strong> {{ auto.get_combustible_display }}</p>
+            <p class="card-text"><strong>Color:</strong> {{ auto.color }}</p>
+            <p class="card-text"><strong>Puertas:</strong> {{ auto.puertas }}</p>
+            <p class="card-text"><strong>Precio por día:</strong> ${{ auto.precio_dia }}</p>
+            <p class="card-text"><strong>Estado:</strong> {{ auto.get_estado_auto_display }}</p>
+        </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="text-center mt-4">
+        {% if user.is_authenticated %}
+            {% if cliente %}
+                <a href="{% url 'cl_crear_reserva' cliente.id auto.id %}" class="btn btn-success">Reservar</a>
+            {% else %}
+                <a href="{% url 'cl_crear_cliente' %}?auto_id={{ auto.id }}" class="btn btn-success">Reservar</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login_cliente' %}" class="btn btn-success">Inicia sesión para reservar</a>
+        {% endif %}
+        <!--<a href="{% url 'catalogo' %}" class="btn btn-secondary">Volver al Catálogo</a>-->
+    </div>
+</div>
+{% endblock %}

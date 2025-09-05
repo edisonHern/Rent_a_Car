@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalles de la Factura{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-header text-center" style="background-color: #007bff; color: #fff;">
+            <h1 class="mb-0">Detalles de la Factura</h1>
+        </div>
+        <div class="card-body">
+            <!-- Información de la factura -->
+            <div class="row g-0">
+                <div class="col-12 p-3">
+                    <p><strong>Código de Factura:</strong> {{ factura.codigo_factura }}</p>
+                    <p><strong>Reserva:</strong> {{ factura.reserva.codigo_reserva }}</p>
+                    <p><strong>Cliente (RUT):</strong> {{ factura.cliente.rut }}</p>
+                    <p><strong>Fecha de Emisión:</strong> {{ factura.fecha_emision|date:"d/m/Y" }}</p>
+                    <p><strong>Método de Pago:</strong> {{ factura.metodo_pago }}</p>
+                    <p><strong>Total:</strong> ${{ factura.total }}</p>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-around mt-4">
+                <a href="{% url 'adm_modificar_factura' factura.id %}" class="btn btn-warning btn-sm text-dark">Modificar</a>
+                <a href="{% url 'adm_eliminar_factura' factura.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta factura?');">Eliminar</a>
+                <a href="{% url 'adm_generar_pdf' factura.codigo_factura %}" class="btn btn-success btn-sm">Generar Boleta</a>
+                <!--<a href="{% url 'descargar_politicas' %}" class="btn btn-success btn-sm">Descargar Políticas</a>-->
+                <a href="{% url 'adm_lista_facturas' %}" class="btn btn-secondary btn-sm">Volver a la Lista</a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

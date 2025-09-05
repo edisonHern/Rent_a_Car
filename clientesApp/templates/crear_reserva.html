@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Crear Reserva{% endblock %}
+
+{% block content %}
+
+<style>
+.card {
+    transition: transform 0.3s ease; /* Transición suave en ambos estados */
+}
+    
+.container:hover .card {
+    transform: translateY(-10px); /* Movimiento hacia arriba */
+}
+</style>
+
+<div class="container mt-4 d-flex justify-content-center align-items-start">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 700px; width: 100%; margin-top: 50px;">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-primary mb-4">Crear Reserva</h1>
+        <div class="card-body">
+            <h5 class="card-title">{{ auto.marca }} {{ auto.modelo }}</h5>
+            <p class="card-text">
+                <strong>Precio por día:</strong> ${{ auto.precio_dia }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Mostrar información del cliente -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Cliente</h5>
+            <p class="card-text">
+                <strong>Nombre:</strong> {{ cliente.nombre }} {{ cliente.apellido }}<br>
+                <strong>RUT:</strong> {{ cliente.rut }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Formulario para las fechas -->
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="p-4 border rounded bg-light">
+            {{ form.as_p }}
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success w-100">Crear Reserva</button>
+            <!--<a href="{% url 'catalogo' %}" class="btn btn-secondary w-100 mt-2">Volver al Catálogo</a>-->
+        </div>
+    </form>
+</div>
+{% endblock %}

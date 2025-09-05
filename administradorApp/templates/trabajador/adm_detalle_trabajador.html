@@ -1,0 +1,43 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Detalle del Trabajador{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-header text-center" style="background-color: #007bff; color: #fff;">
+            <h1 class="mb-0">Detalle del Trabajador</h1>
+        </div>
+        <div class="card-body">
+            <!-- Imagen del trabajador -->
+            {% if trabajador.imagen %}
+                <div class="text-center mb-4">
+                    <img src="{{ trabajador.imagen.url }}" alt="Imagen de {{ trabajador.nombre }} {{ trabajador.apellido }}" class="img-fluid rounded" style="max-height: 300px;">
+                </div>
+            {% else %}
+                <div class="text-center mb-4">
+                    <p class="text-muted">No hay imagen disponible para este trabajador.</p>
+                </div>
+            {% endif %}
+
+            <!-- Detalles del trabajador -->
+            <p><strong>Nombre:</strong> {{ trabajador.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ trabajador.apellido }}</p>
+            <p><strong>RUT:</strong> {{ trabajador.rut }}</p>
+            <p><strong>Cargo:</strong> {{ trabajador.cargo }}</p>
+            <p><strong>Teléfono:</strong> {{ trabajador.telefono }}</p>
+            <p><strong>Email:</strong> {{ trabajador.email }}</p>
+            <p><strong>Estado:</strong> {{ trabajador.estado|capfirst }}</p>
+
+            <!-- Acciones -->
+            <div class="d-flex justify-content-around mt-4">
+                <a href="{% url 'adm_modificar_trabajador' trabajador.id %}" class="btn btn-warning btn-sm text-dark">Modificar</a>
+                <a href="{% url 'adm_eliminar_trabajador' trabajador.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este trabajador?');">Eliminar</a>
+                <a href="{% url 'adm_lista_trabajadores' %}" class="btn btn-secondary btn-sm">Volver a la Lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

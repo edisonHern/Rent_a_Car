@@ -1,0 +1,150 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Autos{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h1 class="text-center text-primary">Lista de Autos</h1>
+        </div>
+    </div>
+
+    <!-- Botón para crear auto -->
+    <div class="text-end mb-4">
+        <a href="{% url 'adm_ingresar_auto' %}" class="btn btn-primary">Ingresar Auto</a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <form method="GET" action="{% url 'adm_lista_autos' %}" class="row g-3">
+                <div class="col-md-3">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="patente" {% if request.GET.tipo_busqueda == 'patente' %}selected{% endif %}>Patente</option>
+                        <option value="marca" {% if request.GET.tipo_busqueda == 'marca' %}selected{% endif %}>Marca</option>
+                        <option value="modelo" {% if request.GET.tipo_busqueda == 'modelo' %}selected{% endif %}>Modelo</option>
+                        <option value="año" {% if request.GET.tipo_busqueda == 'año' %}selected{% endif %}>Año</option>
+                        <option value="kilometraje" {% if request.GET.tipo_busqueda == 'kilometraje' %}selected{% endif %}>Kilometraje</option>
+                        <option value="combustible" {% if request.GET.tipo_busqueda == 'combustible' %}selected{% endif %}>Combustible</option>
+                        <option value="color" {% if request.GET.tipo_busqueda == 'color' %}selected{% endif %}>Color</option>
+                        <option value="puertas" {% if request.GET.tipo_busqueda == 'puertas' %}selected{% endif %}>Puertas</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar" value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="Rentado" {% if request.GET.estado == 'Rentado' %}selected{% endif %}>Rentado</option>
+                        <option value="Disponible" {% if request.GET.estado == 'Disponible' %}selected{% endif %}>Disponible</option>
+                        <option value="Reservado" {% if request.GET.estado == 'Reservado' %}selected{% endif %}>Reservado</option>
+                        <option value="Mantenimiento" {% if request.GET.estado == 'Mantenimiento' %}selected{% endif %}>Mantenimiento</option>
+                    </select>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de autos -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Patente</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Estado</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for auto in page_obj %}
+                    <tr>
+                        <td>
+                            {% if auto.imagen %}
+                                <img src="{{ auto.imagen.url }}" alt="Imagen de {{ auto.marca }} {{ auto.modelo }}" class="img-thumbnail" style="max-width: 100px;">
+                            {% else %}
+                                <span class="text-muted">Sin imagen</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ auto.patente }}</td>
+                        <td>{{ auto.marca }}</td>
+                        <td>{{ auto.modelo }}</td>
+                        <td>
+                            {% if auto.estado_auto == 'disponible' %}
+                                <span class="badge bg-success">Disponible</span>
+                            {% elif auto.estado_auto == 'reservado' %}
+                                <span class="badge bg-info">Reservado</span>
+                            {% elif auto.estado_auto == 'rentado' %}
+                                <span class="badge bg-warning">Rentado</span>
+                            {% elif auto.estado_auto == 'mantenimiento' %}
+                                <span class="badge bg-secondary">Mantenimiento</span>
+                            {% elif auto.estado_auto == 'no_disponible' %}
+                                <span class="badge bg-danger">No Disponible</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'adm_detalle_auto' auto.id %}" class="btn btn-info btn-sm">
+                                Ver Detalles
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay autos ingresados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Controles de paginación -->
+    <nav aria-label="Paginación" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="Primera">&laquo;&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">&laquo;</a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">&raquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última">&raquo;&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

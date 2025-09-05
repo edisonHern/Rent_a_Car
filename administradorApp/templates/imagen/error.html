@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Error al Subir Imagen{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-danger text-center" role="alert">
+        <h1 class="mb-3">Error al Subir Imagen</h1>
+        <p>Ocurrieron los siguientes errores:</p>
+    </div>
+    
+    <ul class="list-group mb-4">
+        {% for campo, mensajes in errores.items %}
+            <li class="list-group-item list-group-item-danger">
+                <strong>{{ campo }}:</strong> {{ mensajes }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="text-center">
+        <a href="{% url 'subir_imagen' %}" class="btn btn-primary">Intentar de Nuevo</a>
+        <a href="{% url 'catalogo' %}" class="btn btn-secondary">Volver al Catálogo</a>
+    </div>
+</div>
+{% endblock %}

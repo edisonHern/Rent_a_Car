@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Clientes{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h1 class="text-center text-primary">Lista de Clientes</h1>
+        </div>
+    </div>
+
+    <!-- Botón para agregar cliente -->
+    <div class="text-end mb-4">
+        <a href="{% url 'adm_ingresar_cliente' %}" class="btn btn-primary">Ingresar Cliente</a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <form method="GET" action="{% url 'adm_lista_clientes' %}" class="row g-3">
+                <div class="col-md-4">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="rut" {% if request.GET.tipo_busqueda == 'rut' %}selected{% endif %}>RUT</option>
+                        <option value="nombre" {% if request.GET.tipo_busqueda == 'nombre' %}selected{% endif %}>Nombre</option>
+                        <option value="apellido" {% if request.GET.tipo_busqueda == 'apellido' %}selected{% endif %}>Apellido</option>
+                        <option value="licencia" {% if request.GET.tipo_busqueda == 'licencia' %}selected{% endif %}>Licencia de Conducir</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar" value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-2">
+                    <select name="estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="rentando" {% if request.GET.estado == 'rentando' %}selected{% endif %}>Rentando</option>
+                        <option value="inactivo" {% if request.GET.estado == 'inactivo' %}selected{% endif %}>Inactivo</option>
+                        <option value="con_reserva" {% if request.GET.estado == 'con_reserva' %}selected{% endif %}>Con Reserva</option>
+                    </select>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de clientes -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Licencia de Conducir</th>
+                        <th>Estado</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.rut }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.licencia_conducir }}</td>
+                        <td>
+                            {% if cliente.estado_cliente == 'rentando' %}
+                                <span class="badge bg-success">Rentando</span>
+                            {% elif cliente.estado_cliente == 'inactivo' %}
+                                <span class="badge bg-danger">Inactivo</span>
+                            {% elif cliente.estado_cliente == 'con_reserva' %}
+                                <span class="badge bg-info">Con Reserva</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Desconocido</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'adm_detalle_cliente' cliente.id %}" class="btn btn-info btn-sm w-100">
+                                Ver Detalles
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No hay clientes ingresados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

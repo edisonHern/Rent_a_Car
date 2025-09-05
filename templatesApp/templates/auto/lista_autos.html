@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Autos - Empleado{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <!-- Título -->
+            <h1 class="text-center text-warning mb-4">Listado de Autos</h1>
+
+            <!-- Formulario de búsqueda -->
+            <form method="GET" action="{% url 'lista_autos' %}" class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="patente" {% if request.GET.tipo_busqueda == 'patente' %}selected{% endif %}>Patente</option>
+                        <option value="marca" {% if request.GET.tipo_busqueda == 'marca' %}selected{% endif %}>Marca</option>
+                        <option value="modelo" {% if request.GET.tipo_busqueda == 'modelo' %}selected{% endif %}>Modelo</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar auto" value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-2">
+                    <select name="estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="Rentado" {% if request.GET.estado == 'Rentado' %}selected{% endif %}>Rentado</option>
+                        <option value="Disponible" {% if request.GET.estado == 'Disponible' %}selected{% endif %}>Disponible</option>
+                        <option value="Reservado" {% if request.GET.estado == 'Reservado' %}selected{% endif %}>Reservado</option>
+                        <option value="Mantenimiento" {% if request.GET.estado == 'Mantenimiento' %}selected{% endif %}>Mantenimiento</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warning text-white w-100">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Tabla de autos -->
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Patente</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for auto in autos %}
+                    <tr>
+                        <td>
+                            {% if auto.imagen %}
+                                <img src="{{ auto.imagen.url }}" alt="Imagen de {{ auto.marca }} {{ auto.modelo }}" class="img-thumbnail" style="max-width: 100px;">
+                            {% else %}
+                                <span class="text-muted">Sin Imagen</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ auto.patente }}</td>
+                        <td>{{ auto.marca }}</td>
+                        <td>{{ auto.modelo }}</td>
+                        <td>
+                            {% if auto.estado_auto == 'disponible' %}
+                                <span class="badge bg-success">Disponible</span>
+                            {% elif auto.estado_auto == 'rentado' %}
+                                <span class="badge bg-danger">Rentado</span>
+                            {% elif auto.estado_auto == 'reservado' %}
+                                <span class="badge bg-info">Reservado</span>
+                            {% else %}
+                                <span class="badge bg-secondary">No Disponible</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'detalle_auto' auto.id %}" class="btn btn-warning btn-sm text-white">Ver Detalles</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No se encontraron autos.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

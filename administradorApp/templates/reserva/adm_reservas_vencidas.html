@@ -1,0 +1,49 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Reservas Vencidas{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-header text-center" style="background-color: #007bff; color: #fff;">
+            <h1 class="mb-0">Reservas Vencidas</h1>
+        </div>
+        <div class="card-body">
+            <!-- Contenido de Reservas Vencidas -->
+            {% if reservas_vencidas %}
+            <h5 class="text-center text-danger mb-4">Listado de Reservas Vencidas</h5>
+            <ul class="list-group">
+                {% for reserva in reservas_vencidas %}
+                <li class="list-group-item">
+                    <p><strong>Código de Reserva:</strong> {{ reserva.codigo_reserva }}</p>
+                    <p><strong>Auto:</strong> {{ reserva.auto }}</p>
+                    <p><strong>Cliente:</strong> {{ reserva.cliente }}</p>
+                    <p><strong>Fecha de Retorno:</strong> {{ reserva.fecha_retorno|date:"d/m/Y" }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="alert alert-info text-center mt-3">
+                <p>No hay reservas vencidas en este momento.</p>
+            </div>
+            {% endif %}
+
+            <!-- Botón para regresar -->
+            <div class="d-flex justify-content-around mt-4">
+                <a href="{% url 'adm_lista_reservas' %}" class="btn btn-secondary btn-sm">Volver a la Lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script de alerta -->
+<script>
+    window.onload = function() {
+        {% if reservas_vencidas %}
+        alert("Hay {{ reservas_vencidas|length }} reservas vencidas.");
+        {% endif %}
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+# Python/Django
+__pycache__/
+*.pyc
+db.sqlite3
+*.log
+
+# Entornos/secretos
+.env
+.env.*
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Front opcional
+node_modules/
+dist/
+build/

@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Trabajador{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <header class="mb-4 text-center">
+        <h1>Sistema de Gestión - Trabajador</h1>
+    </header>
+
+    <!-- Navegación específica del trabajador -->
+    <div class="d-flex justify-content-center mb-4">
+        <a href="{% url 'lista_autos' %}" class="btn btn-primary mx-2">Autos</a>
+        <a href="{% url 'lista_clientes' %}" class="btn btn-primary mx-2">Clientes</a>
+        <a href="{% url 'lista_reservas' %}" class="btn btn-primary mx-2">Reservas</a>
+        <a href="{% url 'lista_facturas' %}" class="btn btn-primary mx-2">Facturas</a>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="row">
+        <!-- Tarjeta 1: Estado de Clientes -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-info text-white">Estado de Clientes</div>
+                <div class="card-body">
+                    <p><strong>Inactivos:</strong> 6</p>
+                    <p><strong>Con Reserva:</strong> 2</p>
+                    <p><strong>Rentando:</strong> 1</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Estado de Autos -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">Estado de Autos</div>
+                <div class="card-body">
+                    <p><strong>Disponibles:</strong> 3</p>
+                    <p><strong>Reservados:</strong> 2</p>
+                    <p><strong>Rentados:</strong> 1</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3: Estado de Reservas -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-warning text-white">Estado de Reservas</div>
+                <div class="card-body">
+                    <p><strong>Activas:</strong> 1</p>
+                    <p><strong>Pagadas:</strong> 2</p>
+                    <p><strong>Completadas:</strong> 3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

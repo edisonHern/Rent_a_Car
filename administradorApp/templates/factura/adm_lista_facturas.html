@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Lista de Facturas{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px); 
+        transition: transform 0.7s ease;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <h1 class="text-center text-primary">Lista de Facturas</h1>
+        </div>
+    </div>
+
+    <!-- Botón para crear una nueva factura -->
+    <div class="text-end mb-4">
+        <a href="{% url 'adm_ingresar_factura' %}" class="btn btn-primary">Nueva Factura</a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <form class="row g-3" method="GET" action="{% url 'adm_lista_facturas' %}">
+                <div class="col-md-5">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar..." value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-4">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="codigo_factura" {% if request.GET.tipo_busqueda == 'codigo_factura' %}selected{% endif %}>Código de factura</option>
+                        <option value="codigo_reserva" {% if request.GET.tipo_busqueda == 'codigo_reserva' %}selected{% endif %}>Código de reserva</option>
+                        <option value="rut_cliente" {% if request.GET.tipo_busqueda == 'rut_cliente' %}selected{% endif %}>RUT de cliente</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+                <div class="col-md-1">
+                    <a href="{% url 'adm_lista_facturas' %}" class="btn btn-secondary w-80">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de facturas -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Código</th>
+                        <th>Reserva</th>
+                        <th>Cliente</th>
+                        <th>Fecha de Emisión</th>
+                        <th>Método de Pago</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                    <tr>
+                        <td>{{ factura.codigo_factura }}</td>
+                        <td>{{ factura.reserva.codigo_reserva }}</td>
+                        <td>{{ factura.cliente.rut }}</td>
+                        <td>{{ factura.fecha_emision|date:"d/m/Y" }}</td>
+                        <td>{{ factura.metodo_pago }}</td>
+                        <td>${{ factura.total }}</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                <a href="{% url 'adm_detalle_factura' factura.id %}" class="btn btn-info btn-sm">Ver Detalles</a>
+                                <a href="{% url 'adm_modificar_factura' factura.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{% url 'adm_eliminar_factura' factura.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar esta factura?');">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">No hay facturas registradas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

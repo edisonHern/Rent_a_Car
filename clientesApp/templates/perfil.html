@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Perfil del Cliente{% endblock %}
+
+{% block content %}
+
+<style>
+.card {
+    transition: transform 0.3s ease; /* Transición suave en ambos estados */
+}
+        
+.container:hover .card {
+    transform: translateY(-10px); /* Movimiento hacia arriba */
+}
+</style>
+
+<div class="container mt-5 d-flex justify-content-center">
+    <!-- Contenedor principal -->
+    <div class="card shadow-lg" style="max-width: 600px; width: 100%;">
+        <div class="card-body">
+            <!-- Título principal -->
+            <h1 class="text-center text-primary mb-4">Perfil del Cliente</h1>
+
+            <!-- Sección de datos personales -->
+        {% if cliente %}
+            <h3 class="text-secondary">Datos Personales</h3>
+            <ul class="list-group mb-4">
+                <li class="list-group-item"><strong>Nombre:</strong> {{ cliente.nombre }} {{ cliente.apellido }}</li>
+                <li class="list-group-item"><strong>RUT:</strong> {{ cliente.rut }}</li>
+                <li class="list-group-item"><strong>Correo Electrónico:</strong> {{ cliente.email }}</li>
+                <li class="list-group-item"><strong>Teléfono:</strong> {{ cliente.telefono }}</li>
+                <li class="list-group-item"><strong>Dirección:</strong> {{ cliente.direccion }}</li>
+            </ul>
+
+            <!-- Sección de reserva activa -->
+            <h3 class="text-secondary">Reserva Activa</h3>
+            {% if reserva_activa %}
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>Auto:</strong> {{ reserva_activa.auto.marca }} {{ reserva_activa.auto.modelo }}</li>
+                    <li class="list-group-item"><strong>Fecha de Inicio:</strong> {{ reserva_activa.fecha_inicio|date:"d/m/Y" }}</li>
+                    <li class="list-group-item"><strong>Fecha de Retorno:</strong> {{ reserva_activa.fecha_retorno|date:"d/m/Y" }}</li>
+                    <li class="list-group-item"><strong>Monto Total:</strong> ${{ reserva_activa.precio_total }}</li>
+                </ul>
+            {% else %}
+                <p class="text-danger text-center mt-3">No tienes reservas activas.</p>
+            {% endif %}
+        {% else %}  
+            <p>No estás registrado como cliente.</p>  
+        {% endif %}
+            <!-- Botón de retorno -->
+            <!--<div class="text-center mt-4">
+                <a href="{% url 'carrusel_imagen' %}" class="btn btn-secondary w-50">Volver al Menú</a>
+            </div>-->
+        </div>
+    </div>
+</div>
+{% endblock %}

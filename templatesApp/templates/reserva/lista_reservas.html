@@ -1,0 +1,126 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Lista de Reservas{% endblock %}
+
+{% block content %}
+
+<style>
+    tbody tr:hover {
+        transform: translateY(-5px);
+        transition: transform 0.7s ease;
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: start; /* Alinear hacia la izquierda */
+        gap: 5px; /* Espaciado entre botones */
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Título -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-header bg-white text-warning text-center">
+            <h1 class="mb-0">Reservas</h1>
+        </div>
+    </div>
+
+    <!-- Botón para agregar una nueva reserva -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'ingresar_reserva' %}" class="btn btn-warning btn-lg text-white">
+            <i class="fas fa-plus-circle"></i> Ingresar Reserva
+        </a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card shadow-lg mb-4">
+        <div class="card-body">
+            <form method="GET" action="{% url 'lista_reservas' %}" class="row g-3">
+                <div class="col-md-4">
+                    <select name="tipo_busqueda" class="form-select">
+                        <option value="codigo_reserva" {% if request.GET.tipo_busqueda == 'codigo_reserva' %}selected{% endif %}>
+                            Código Reserva
+                        </option>
+                        <option value="patente" {% if request.GET.tipo_busqueda == 'patente' %}selected{% endif %}>Patente</option>
+                        <option value="rut" {% if request.GET.tipo_busqueda == 'rut' %}selected{% endif %}>RUT</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar" value="{{ request.GET.q }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="estado" class="form-select">
+                        <option value="">Todos los estados</option>
+                        <option value="activa" {% if request.GET.estado == 'activa' %}selected{% endif %}>Activa</option>
+                        <option value="pagada" {% if request.GET.estado == 'pagada' %}selected{% endif %}>Pagada</option>
+                        <option value="cancelada" {% if request.GET.estado == 'cancelada' %}selected{% endif %}>Cancelada</option>
+                        <option value="completada" {% if request.GET.estado == 'completada' %}selected{% endif %}>Completada</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-warning w-100 text-white">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de reservas -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Código Reserva</th>
+                        <th>Auto (Patente)</th>
+                        <th>Cliente (RUT)</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Fecha de Retorno</th>
+                        <th>Precio Total</th>
+                        <th>Estado Reserva</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.codigo_reserva }}</td>
+                        <td>{{ reserva.auto.patente }}</td>
+                        <td>{{ reserva.cliente.rut }}</td>
+                        <td>{{ reserva.fecha_inicio|date:"d/m/Y" }}</td>
+                        <td>{{ reserva.fecha_retorno|date:"d/m/Y" }}</td>
+                        <td>${{ reserva.precio_total|floatformat:2 }}</td>
+                        <td>
+                            {% if reserva.estado_reserva == 'activa' %}
+                                <span class="badge bg-info">Activa</span>
+                            {% elif reserva.estado_reserva == 'completada' %}
+                                <span class="badge bg-success">Completada</span>
+                            {% elif reserva.estado_reserva == 'cancelada' %}
+                                <span class="badge bg-danger">Cancelada</span>
+                            {% elif reserva.estado_reserva == 'pagada' %}
+                                <span class="badge bg-primary">Pagada</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Terminado</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'detalle_reserva' reserva.id %}" class="btn btn-warning btn-sm text-white">
+                                    Ver Detalles
+                                </a>
+                                <!--{% if reserva.estado_reserva == 'activa' %}
+                                    <a href="{% url 'generar_factura_desde_reserva' reserva.id %}" class="btn btn-success btn-sm">Generar Factura</a>
+                                    <a href="{% url 'cancelar_reserva' reserva.id %}" class="btn btn-danger btn-sm">Cancelar</a>
+                                {% endif %}-->
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">No hay reservas ingresadas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

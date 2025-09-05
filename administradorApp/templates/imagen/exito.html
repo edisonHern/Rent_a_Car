@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Subida Exitosa{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success text-center" role="alert">
+        <h1>Imagen Subida con Éxito</h1>
+        <p>{{ mensaje }}</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'subir_imagen' %}" class="btn btn-primary">Subir otra imagen</a>
+        <a href="{% url 'catalogo' %}" class="btn btn-secondary">Volver al Catálogo</a>
+    </div>
+</div>
+{% endblock %}

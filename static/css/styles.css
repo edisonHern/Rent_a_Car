@@ -1,0 +1,129 @@
+/* Archivo: static/css/styles.css */
+
+body { 
+    background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Botón azul personalizado */
+.btn-primary-custom {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    background-color: #0056b3;
+}
+
+/* Tabla con sombreado en hover */
+.table-hover tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Tarjeta con bordes suaves */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilo base para los botones */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transición para suavizar los efectos */
+}
+
+/* Animación al hover */
+.btn:hover {
+    transform: translateY(-2px) scale(1.1); /* Movimiento hacia arriba y agrandado */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+}
+
+/* Personalización de botones por colores */
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important; /* Azul brillante */
+    transform: translateY(-2px); /* Levanta ligeramente la letra */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+
+.btn-custom-red {
+    background-color: #b70e1f; /* Rojo personalizado */
+    color: #fff; /* Texto blanco */
+    padding: 5px 10px; /* Tamaño pequeño */
+    font-size: 1rem; /* Tamaño de texto pequeño */
+    border: none; /* Sin bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: all 0.3s ease; /* Suaviza las transiciones */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.btn-custom-red:hover {
+    background-color: #9d0918; /* Rojo más oscuro al pasar el mouse */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+
+.btn-custom-red:disabled {
+    background-color: #fff;
+    color: #fff; 
+    cursor: not-allowed; 
+}
+
+.carousel-item img {
+    max-width: 100%; /* No exceder el ancho del contenedor */
+    max-height: 700px; /* Altura máxima permitida */
+    object-fit: cover; /* Ajustar sin distorsionar */
+    width: 100%; /* Asegurar que ocupe el ancho completo */
+    height: auto; /* Ajustar automáticamente la altura */
+}
+
+/* Asegura que el contenedor principal ocupe toda la altura */
+body, html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* La página ocupará al menos toda la altura de la ventana */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor principal (contenido de la página) */
+.main-content {
+    flex: 1; /* Toma todo el espacio disponible entre el header y el footer */
+}
+
+/* Footer */
+footer {
+    background-color: #f8f9fa; /* Fondo claro para el footer */
+    text-align: center;
+    padding: 10px 0; /* Espaciado interno */
+    border-top: 1px solid #ddd; /* Línea superior */
+}
+
